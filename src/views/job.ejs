@@ -1,0 +1,36 @@
+<!-- display an individaul job by id -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>job</title>
+ </head>
+ <body>
+   <h2>Hi i am individual job page</h2>
+   <div>
+      <p>companyName</p>
+      <p>CompanyDescription</p>
+   </div>
+   <div>
+      <p>job Type : <%= job.jobType %> </p>
+      <p>Job Role : <%= job.jobDesignation %> </p>
+      <p>skills Required : <% job.skills.forEach(skill => { %>
+       <span><%= skill %></span>
+      <% }) %> </p>
+   </div>
+   <div>
+      <p>postedAt : <%= job.postedAt.split('T')[0] %> </p>
+      <p>opening for <%= job.opening %>  seats</p>
+      <p>salary : <%= job.salary %> </p>
+      <p>Last day to apply is <%= job.applyBy %> </p>
+      <button onclick="redirectToDestination(window.location.origin, 'apply', '<%= job.jobId %>')">Apply</button>
+
+      <script type="module">
+         import { redirectToDestination} from '/utility.js'
+         window.redirectToDestination = redirectToDestination;
+      </script>
+   </div>
+   
+ </body>
+ </html>
