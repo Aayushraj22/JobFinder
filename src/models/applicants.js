@@ -1,13 +1,13 @@
 import { generateId } from "../../global.utility.js";
 import { getJobById } from "./jobs.js";
 
-const applicants = [
+let applicants = [
     {
-        applicantId: '',
-        name: '',
-        email: '',
-        contact: '',
-        resumePath: '',
+        applicantId: 'abcdefgh',
+        fullName: 'hello world',
+        email: 'helloworld@gmail.com',
+        contact: '0123456789',
+        resumePath: '/1722956737614-Screenshot 2024-07-18 130126.png',
     }
 ]
 
@@ -30,7 +30,7 @@ function addApplicant(applicantDetail, jobId){
     })
 
     const job = getJobById(jobId);
-    job.applicantList.push(jobId);  // add applicant in the applicantList property of applied job.
+    job.applicantList.push(applicantId);  // add applicant in the applicantList property of applied job.
 }
 
 /**
@@ -46,4 +46,23 @@ function getApplicantByList(applicantList) {
     return result;
 }
 
-export {getApplicantById, addApplicant, getApplicantByList}
+function deleteApplicantById(id) {
+    applicants = applicants.filter((applicant) => applicant.applicantId !== id);
+}
+
+function updateApplicantDetailById(id, data){
+    applicants = applicants.map(applicant => {
+        if(applicant.applicantId === id){
+            return {
+                ...applicant,
+                ...data,
+            }
+        }
+        return applicant
+    })
+    
+
+    // console.log('modified applicant list: ',applicants)
+}
+
+export {getApplicantById, addApplicant, getApplicantByList, deleteApplicantById, updateApplicantDetailById}

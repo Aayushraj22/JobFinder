@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url'
 import { generateId } from './global.utility.js'
 import multer from 'multer'
 import { createTransport } from 'nodemailer'
+import expressEjsLayouts from "express-ejs-layouts";
+import cookieParser from 'cookie-parser'
 
 export const app = express()
 const PORT = 8080
@@ -27,6 +29,16 @@ const staticFilepath = path.join(__dirname, 'src')
 app.use(express.static(staticFilepath))
 
 
+// app will use cookie
+app.use(cookieParser())
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+// app will use express-ejs-layout
+app.use(expressEjsLayouts);
+
+app.set('layout', 'layouts/layout');
+
 // set views folder path
 app.set('views', path.resolve('src', 'views'));
 
@@ -40,7 +52,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         secure: false,
-        maxAge: 100000,
+        maxAge: 24*60*60*1000,
     }
 }))
 
@@ -71,7 +83,7 @@ const transporter = createTransport({
 
 export async function sendMail(receiverMail) {
     const info = await transporter.sendMail({
-        from: '"FindJob 🏛️" <aygupta9334@gmail.com>', // sender address
+        from: '"JobFinder 🏛️" <aygupta9334@gmail.com>', // sender address
         to: receiverMail, // list of receivers
         subject: "Job Application", // Subject line
         text: "Applied successfully", // plain text body

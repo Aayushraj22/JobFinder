@@ -1,40 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-</head>
-<body class="container">
-    <h2>Jobs page</h2>
-    <section class="row border mt-4 p-2">
-        <% if (jobs) { %>
-            <% jobs.forEach(job => { %>
-            <div class="border col-4 d-flex flex-column p-2 gap-1 rounded">
-                <p class="m-0"> Company : <%= job.companyName %> </p>
-                <p class="m-0"> Role : <%= job.jobDesignation %> </p>
-                <!-- <p> Type : <%= job.jobType %> </p> -->
-                <!-- <p class="h-fit border "> Skills Required : <% job.skills.forEach(skill => { %>
-                    <span class="border bg-secondary text-white px-2 py-1 rounded "><%= skill %></span>
-                    <% }) %> </p> -->
-                <!-- <p class="text-primary"> Paying: <%= job.salary %> </p>
-                <p class="text-danger"> Openings: <%= job.opening %> </p> -->
-                <p class="text-danger"> Apply Before : <%= job.applyBy %> </p>
-                <button type="button" class="btn btn-outline-primary btn-sm" onclick="redirectToDestination(window.location.href, undefined, '<%= job.jobId %>')">View In Detail</button>
+<% if (isAutherised) { %>
+    <div class="badge text-bg-warning top-0 start-0 position-fixed mb-0 ">Last active was <%= lastVisit %> day ago. </div>
+  <% } %>
+<h2 class="font-monospace fw-semibold" style="line-height: 80px;">Available Jobs</h2>
+<section class="d-flex flex-wrap gap-3 justify-content-center w-100 flex-grow-1 px-2 py-4 overflow-auto ">
+    <% if (jobs) { %>
+        <% jobs.forEach(job => { %>
+        <div class="border d-flex flex-column p-2 gap-1 rounded h-fit fs-6 text-capitalize" style="width: 320px; height: 400px;">
+            <p class="m-0"> Company : <%= job.company %> </p>
+            <p class="m-0"> Role : <%= job.jobDesignation %> </p>
+            <p> Type : <%= job.jobType %> </p>
+            <div class="my-1" style="height: 150px; line-height: 25px;"> <p class="px-2 py-1 mb-0">Skills Required : </p>
+                <div class="h-75 overflow-auto">
+                    <% job?.skills?.forEach(skill => { %>
+                        <span class="bg-dark text-white px-2 rounded py-1 text-uppercase" style="font-size: 10px;"><%= skill %></span>
+                        <% }) %> 
+                </div>
             </div>
-            <% }) %>
-        <% } %>
-    </section>
+            <p class="text-primary mb-0"> Paying: <%= job.salary %> </p>
+            <p class="text-danger mb-0"> Openings: <%= job.opening %> </p>
+            <p class="text-danger mb-0"> Apply Before : <%= job.applyBy %> </p>
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="redirectToDestination(window.location.href, undefined, '<%= job.jobId %>')">View In Detail</button>
+        </div>
+        <% }) %>
+    <% } %>
+</section>
 
-    <script type="module">
-        import {redirectToDestination} from '/utility.js'
-        window.redirectToDestination = redirectToDestination
-    </script>
-</body>
-</html>

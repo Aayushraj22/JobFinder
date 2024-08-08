@@ -4,11 +4,11 @@ import { generateId } from "../../global.utility.js";
 // array data structure to store user
 const users = [
     {
-        userId: 'ddd0c784',
-        username: 'developer404',
-        email: 'developer@gmail.com',
-        password: 'developer',
-    },
+        userId: 'abdefs43',
+        username: 'johndoe',
+        email: 'johndoe@gmail.com',
+        password: 'johndoe'
+    }
 ]
 
 // adding new user

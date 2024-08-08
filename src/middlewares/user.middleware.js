@@ -10,10 +10,11 @@ function validateUserData (req, res, next) {
 }
 
 function authenticateRecruter(req,res,next) {
+    // console.log('autherisation method called')
     if(req.session.user) {
         next()
     } else {
-        res.status(401).redirect('/login');
+        res.status(301).redirect('/');
     }
 }
 

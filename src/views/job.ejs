@@ -1,36 +1,43 @@
-<!-- display an individaul job by id -->
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>job</title>
- </head>
- <body>
-   <h2>Hi i am individual job page</h2>
-   <div>
-      <p>companyName</p>
-      <p>CompanyDescription</p>
-   </div>
-   <div>
-      <p>job Type : <%= job.jobType %> </p>
-      <p>Job Role : <%= job.jobDesignation %> </p>
-      <p>skills Required : <% job.skills.forEach(skill => { %>
-       <span><%= skill %></span>
-      <% }) %> </p>
-   </div>
-   <div>
-      <p>postedAt : <%= job.postedAt.split('T')[0] %> </p>
-      <p>opening for <%= job.opening %>  seats</p>
-      <p>salary : <%= job.salary %> </p>
-      <p>Last day to apply is <%= job.applyBy %> </p>
-      <button onclick="redirectToDestination(window.location.origin, 'apply', '<%= job.jobId %>')">Apply</button>
-
-      <script type="module">
-         import { redirectToDestination} from '/utility.js'
-         window.redirectToDestination = redirectToDestination;
-      </script>
-   </div>
-   
- </body>
- </html>
+<!-- display an individaul job by id -->  
+<section class="container flex-grow-1 w-100 overflow-auto py-2 ">
+   <% if (status) { %>
+      <div class="alert alert-success fw-bold" role="alert">
+         Application Status : <%= status %> 
+       </div>
+   <% } %>
+   <% if (job) { %>
+      <div class="alert alert-danger fw-bold" role="alert">
+         Apply till <%= job.applyBy %> 
+      </div>
+      <div class=" text-capitalize">
+         <p class="mb-0">Company :  <%= job.company %></p>
+         <div class=" mb-0 " > <p class="mb-0">Description : </p>
+            <div class=" p-2 oberflow-auto" style="height: 100px; font-size: 14px;"><%= job.companyDesc %></div></div>
+      </div>
+      <div class="text-capitalize">
+         <div class="d-flex gap-5">
+            <p class="mb-0 ">Type : <%= job.jobType %> </p>
+            <p class="mb-0 ">Role : <%= job.jobDesignation %> </p>
+         </div>
+         <div style="height: 150px"><p class="mb-0" style="line-height: 30px;">Skills Required : </p>
+            <div class=" overflow-auto p-2 " style="height: calc(100% - 30px); line-height: 30px; font-size: 12px; ">
+               <% job.skills.forEach(skill => { %>
+                  <span class="px-2 py-1 rounded bg-dark"><%= skill %></span>
+                  <% }) %>
+               </div>
+            </div>
+         </div>
+      <div class=" fw-light">
+         <p class="mb-0 text-capitalize">Posted At : <%= job.postedAt.split('T')[0] %> </p>
+         <p class="mb-0 text-capitalize text-warning">Openings : <%= job.opening %></p>
+         <p class="mb-0 text-capitalize text-info">Salary : <%= job.salary %> </p>
+         
+         <% if (!isAutherised) { %>
+            <button onclick="redirectToDestination(window.location.origin, 'apply', '<%= job.jobId %>')" class="btn btn-primary mt-3">Apply</button>
+         <% } else { %>
+            <button onclick="redirectToDestination(window.location.pathname, 'update')" class="btn btn-dark mt-3">Modify Job Details</button>
+            <button onclick="redirectToDestination(window.location.pathname, 'applicants')" class="btn btn-dark mt-3">view Applicants</button>
+         <% } %>
+      </div>
+   <% } %>
+</section>

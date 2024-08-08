@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>job applicant page</title>
-</head>
-<body>
-    <h1>all job applicants</h1>
-</body>
-</html>
+<div class="border flex-grow-1 w-100 d-flex flex-column gap-0">
+
+<h1 class="text-center py-4 text-capitalize">all job applicants</h1>
+<div class="h-100 d-flex flex-wrap justify-content-center p-4">
+<% if (applicants) { %> <% applicants.forEach(({applicantId, name, email,
+contact, resumePath}) => { %>
+<div class="card" style="width: 18rem; height: 220px;">
+  <img
+    src="<%= resumePath %>"
+    class="card-img-top border"
+    style="height: 150px; object-fit: fill; width: 100%"
+    alt="resume"
+  />
+  <div class="card-body fs-6">
+    <p class="card-title text-center fs-4"><%= name %></p>
+    <button
+      class="btn btn-outline-primary"
+      onclick="redirectToDestination(window.location.href, undefined, '<%= applicantId %>')"
+    >
+      Detail View
+    </button>
+  </div>
+</div>
+<% }) %> <% } %>
+</div>
+</div>
